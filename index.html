@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio Componentes 1</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+  <!-- VUE COMPONENT -->
+  <div id="app">
+    <image-component 
+      v-for="image in gallery"
+      :key="image.id"
+      :id="image.id"
+      :name_image="image.name"
+      :src_image="image.src"
+      class="img_comp"
+    >
+    </image-component>
+  </div>
+
+
+  
+  <script>
+    
+    // REGISTRO
+    Vue.component('image-component',{
+      props:{
+        name_image:{
+                    type:String,
+                    required:true,
+                },
+        src_image:{
+            type:String,
+            required:true,
+        },
+        id:{
+            type:Number,
+            required:true,
+        }
+      },
+      template:`
+        <div class='flex-container'>
+          <div class='block'>
+            <img :src="src_image" alt="image" class='imgSize'>  
+          </div>
+          <div>
+            <h3> {{ name_image }} </h3>
+          </div>
+        </div>`
+    });
+
+    // INSTANCIA PRINCIPAL DE VUE
+    const app = new Vue({
+        el:"#app",
+        data: {
+          gallery:[
+            {id:1, name:"Rich Sanchez", src:"https://rickandmortyapi.com/api/character/avatar/1.jpeg"},
+            {id:2, name:"Morty Smith", src:"https://rickandmortyapi.com/api/character/avatar/2.jpeg"},
+            {id:3, name:"Morty Smith", src:"https://rickandmortyapi.com/api/character/avatar/3.jpeg"},
+            {id:4, name:"Morty Smith", src:"https://rickandmortyapi.com/api/character/avatar/4.jpeg"},
+            {id:5, name:"Morty Smith", src:"https://rickandmortyapi.com/api/character/avatar/5.jpeg"}
+          ]
+        }
+    })
+  </script>
+
+  <style scoped>
+    body{
+      background-image: url('https://rickandmortypod.com/wp-content/uploads/2018/11/cropped-RM_page-header_background1-3.png');
+      background-repeat: no-repeat;
+    }
+    .flex-container {
+      display: flex; 
+      padding-top: 10px;
+    }
+  
+    .imgSize{
+      width: 100px;
+      border-radius: 50%;
+      padding-right: 10px;
+    }
+    
+    h3{
+      color: green;
+
+    }
+  </style>
+</body>
+</html>
